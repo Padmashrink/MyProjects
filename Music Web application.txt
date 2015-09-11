@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>A Music Web Application</title>
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="music.js"></script>
+  </head>
+  <body onload="initialize();">
+    <form>
+       <label>Artist name: <input type="text" id="form-input"/></label>
+       <input type="button" onclick="sendRequest();" value="Display Info"/>
+    </form>
+    <h5>Artist name:</h5>
+    <div id="artistname">&nbsp;</div>
+    <h5>Biography:</h5>
+    <div id="artistbio">&nbsp;</div>
+    <h5>Image:</h5>
+    <img id="artistimage" style="width:150px;height:150px;">&nbsp;</img>
+    <hr/>
+    <h5>Top Albums:</h5>
+    <table id ="table">
+    <tr><td id = "albumname"></td><td id="albumimage"></td></tr>
+    </table>
+    <hr/>
+    <h5>Up coming events:</h5>
+    <table id="table">
+    <tr><td id = "events"></td><td id="date"></td></tr>
+    </table>
+    <hr/>
+  </body>
+</html>
+
+
+music.html
+
+
+// Put your Last.fm API key here
+var api_key = "******";
+
+var request1 = new XMLHttpRequest();
+var request2 = new XMLHttpRequest();
+var request3 = new XMLHttpRequest();
+
+function displayResult1 () {
+    if (request1.readyState == 4) {
+        var json1 = JSON.parse(request1.responseText);
+        var name1 = json1.artist.name;
+        var summary1 = json1.artist.bio.summary;
+        var image1="";
+        var image2="";
+        document.getElementById("artistname").innerHTML = name1;
+        document.getElementById("artistbio").innerHTML = summary1;
+        image1 = json1.artist.image[4];
+        image2 = image1['#text'];
+        document.getElementById("artistimage").src = image2;
+    }
+}
+
+function displayResult2 () {
+	var divClear = document.getElementsByTagName("table")[0];
+	if(divClear != null)
+	{
+	   while(divClear.firstChild){
+		   divClear.removeChild(divClear.firstChild);
+	   }
+    }
+    if (request2.readyState == 4) {
+        var json2 = JSON.parse(request2.responseText);
+        var topalbums1="";
+        var rows = "";
+        var albumimage1 = "";
+        var albumimage2 = "";
+        var responseJ = json2.topalbums.album;
+        for (var i=0;i<responseJ.length;i++){
+            topalbums1 = responseJ[i].name;
+            albumimage1 = responseJ[i].image[1];
+            albumimage2 = albumimage1['#text'];
+            rows += '<tr><td id = "albumname" >'+ topalbums1 +'</td><td><img id ="albumimage" src=' + albumimage2 + '></img></td></tr>';            
+        }
+        document.getElementsByTagName("table")[0].innerHTML += rows;
+    }
+}
+
+function displayResult3() {
+	var divClear = document.getElementsByTagName("table")[1];
+	if(divClear != null)
+	{
+	   while(divClear.firstChild){
+		  divClear.removeChild(divClear.firstChild);
+	   }
+	}
+    if (request3.readyState == 4) {
+        var json3 = JSON.parse(request3.responseText);
+        var events1="";
+        var eventrow="";
+        for (var i=0;i<json3.events.event.length;i++){
+            events1 = json3.events.event[i].title;
+            date1 = json3.events.event[i].startDate;
+            eventrow += '<tr><td id = "events" >'+ events1 +'</td>--<td id = "date" >' + date1 + '></img></td></tr>';
+        }
+        document.getElementsByTagName("table")[1].innerHTML += eventrow;
+    }
+}
+
+function sendRequest () {
+    sendRequest1();
+    sendRequest2();
+    sendRequest3();
+}
+
+function sendRequest1 () {
+    var method1 = "artist.getinfo";
+    request1.onreadystatechange = displayResult1;
+    var artist = document.getElementById("form-input").value;
+    request1.open("GET","proxy.php?method="+method1+"&artist="+artist+"&api_key="+api_key+"&format=json",true);
+    request1.withCredentials = "true";
+    request1.send(null);
+}
+
+function sendRequest2 () {
+    var method2 = "artist.gettopalbums";
+    request2.onreadystatechange = displayResult2;
+    var artist = document.getElementById("form-input").value;
+    request2.open("GET","proxy.php?method="+method2+"&artist="+artist+"&api_key="+api_key+"&format=json",true);
+    request2.withCredentials = "true";
+    request2.send(null);
+}
+
+function sendRequest3 () {
+	 var method3 = "artist.getevents";
+	    request3.onreadystatechange = displayResult3;
+	    var artist = document.getElementById("form-input").value;
+	    request3.open("GET","proxy.php?method="+method3+"&artist="+artist+"&api_key="+api_key+"&format=json",true);
+	    request3.withCredentials = "true";
+	    request3.send(null);
+}
