@@ -4,9 +4,9 @@
          session_start();
     }
     $hostname_localhost ="omega.uta.edu";
-    $database_localhost ="pvn4560";
-    $username_localhost ="pvn4560";
-    $password_localhost ="yBaxS4KE6j";
+    $database_localhost ="*****";
+    $username_localhost ="*****";
+    $password_localhost ="*****";
     $localhost = mysqli_connect($hostname_localhost,$username_localhost,$password_localhost,$database_localhost);
 ?>
 <!DOCTYPE html>

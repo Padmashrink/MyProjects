@@ -1,5 +1,5 @@
 <?php
-   $localhost = mysqli_connect("omega.uta.edu","pvn4560","yBaxS4KE6j","pvn4560"); 
+   $localhost = mysqli_connect("omega.uta.edu","*****","*****","*****"); 
    if (mysqli_connect_errno()) {
        echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
