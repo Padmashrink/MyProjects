@@ -1,7 +1,4 @@
-<!-- Name : Padmashri Nonabur Krishnamurthy -->
-<!-- UTA ID : 1001084560 -->
-<!-- Link : https://omega.uta.edu/~pvn4560/project8/album.php--> 
-<!-- Note : Dropbox Folder name: pvn4560. Created this folder as I got a message saying that cse5335 name is already taken. -->
+
 
 <html>
 <head>
@@ -30,8 +27,8 @@ set_time_limit(0);
 require_once("DropboxClient.php");
 
 $dropbox = new DropboxClient(array(
-	'app_key' => "ag36ttjha6shfp1",      
-	'app_secret' => "t7b6xphv8grybrl",   
+	'app_key' => "*****",      
+	'app_secret' => "*****",   
 	'app_full_access' => false,
 ),'en');
 
