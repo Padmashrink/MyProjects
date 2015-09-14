@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE travel SYSTEM "travel.dtd">
+<travel>
+     <airport code = "a1">
+	     <name>DFW</name>
+	 </airport>
+	 <airport code = "a2">
+	     <name>Dallas Love Field </name>
+	 </airport>
+	 <airport code = "a3">
+	     <name>Atlanta </name>
+	 </airport>
+	 <airport code = "a4">
+	     <name>Washington D.C</name>
+	 </airport>
+	 <airport code = "a5">
+	     <name>JFK</name>
+	 </airport>
+	 <flight id = "f1" from = "a1" to = "a5">
+	     <date>11/20/2014</date>
+		 <departureTime>8.15 AM</departureTime>
+		 <arrivalTime>11.45 PM</arrivalTime>
+	 </flight>
+	 <flight id = "f2" from = "a2" to = "a4">
+	     <date>12/02/2014</date>
+		 <departureTime>6.00 PM</departureTime>
+		 <arrivalTime>9.00 PM</arrivalTime>
+	 </flight>
+	 <flight id = "f3" from = "a5" to = "a1">
+	     <date>12/03/2014</date>
+		 <departureTime>3.45 PM</departureTime>
+		 <arrivalTime>7.25 PM</arrivalTime>
+	 </flight>
+	 <flight id = "f4" from = "a4" to = "a3">
+	     <date>12/04/2014</date>
+		 <departureTime>9.00 AM</departureTime>
+		 <arrivalTime>11.00 AM</arrivalTime>
+	 </flight>
+	 <passenger ssn = "S001">
+	     <name>John Smith</name>
+		 <address>Arlington, Texas</address>
+	 </passenger>
+	 <passenger ssn = "S002">
+	     <name>Mary</name>
+		 <address>Dallas,Texas</address>
+	 </passenger>
+	 <passenger ssn = "S003">
+	     <name>Kate</name>
+		 <address>Queen, Newyork</address>
+	 </passenger>
+	 <passenger ssn = "S004">
+	     <name>Johny</name>
+		 <address>District Heights,Washington D.C</address>
+	 </passenger>
+	 <reservation passenger = "S001" flight = "f1">
+	     <creditcard>4651876512340001</creditcard>
+	 </reservation>
+	 <reservation passenger ="S002" flight = "f2">
+	     <creditcard>4651876512340002</creditcard>
+	 </reservation>
+	 <reservation passenger = "S003" flight = "f3">
+	     <creditcard>4651876512340003</creditcard>
+	 </reservation>
+	 <reservation passenger = "S004" flight = "f4">
+	     <creditcard>4651876512340004</creditcard>
+	 </reservation>
+</travel>
+	 
