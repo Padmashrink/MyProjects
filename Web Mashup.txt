@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!--
-    Student Name: Padmashri Nonabur Krishnamurthy
-    URL Address: http://omega.uta.edu/~pvn4560/project2/map.html
+
 -->
 <html lang="en">
   <head>
@@ -10,7 +9,7 @@
     </style>
     <title>Web Mashup: Display House Prices on a Map</title>
     <meta charset="utf-8"/>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyC5wmL54XVn08ViuXjQQtzpL08yT5ruQkI" ></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=*****" ></script>
     <script type="text/javascript" src="map.js" ></script>
   </head>
   <body onload="initialize();">
@@ -29,7 +28,7 @@
 
 
 // Put your zillow.com API key here
-var zwsid = "X1-ZWz1dwvei91ouj_9od0r";
+var zwsid = "*****";
 
 var request = new XMLHttpRequest();
 var geocoder;
