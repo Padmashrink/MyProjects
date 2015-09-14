@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+    Student Name: Padmashri Nonabur Krishnamurthy
+    URL Address: http://omega.uta.edu/~pvn4560/project2/map.html
+-->
+<html lang="en">
+  <head>
+    <style type="text/css">
+      html, body, #mapsCreate { height: 600px; width:500px; margin: 0; padding: 0;}
+    </style>
+    <title>Web Mashup: Display House Prices on a Map</title>
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyC5wmL54XVn08ViuXjQQtzpL08yT5ruQkI" ></script>
+    <script type="text/javascript" src="map.js" ></script>
+  </head>
+  <body onload="initialize();">
+    <form>
+       <label>House address: <input type="text" id="address"/></label>
+       <!--<label>City: <input type="text" id="city"/></label>
+       <label>State: <input type="text" id="state"/></label>
+       <label>Zip Code: <input type="text" id="zipcode"/></label>-->
+       <input type="button" onclick="sendRequest();" value="Display Info"/>
+       <input type="reset" onclick="clearAllMarkers();" value="Clear"/>
+    </form>
+    <div id="mapsCreate">&nbsp;</div>
+    <textarea id="textinfo" rows="20" cols="50"></textarea>
+  </body>
+</html>
+
+
+// Put your zillow.com API key here
+var zwsid = "X1-ZWz1dwvei91ouj_9od0r";
+
+var request = new XMLHttpRequest();
+var geocoder;
+var map;
+var streetno;
+var citystate;
+var markers = [];
+var infowindow = new google.maps.InfoWindow();
+
+//initializing the map which centers at 32.75,-97.13 and with the zoom in level of 16. Also calls the formatAddress method on clicking on any location in the map.
+function initialize () {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(32.75,-97.13);
+        var mapInitials = {
+        center: latlng,
+        zoom: 16
+      };
+      map = new google.maps.Map(document.getElementById('mapsCreate'),mapInitials);
+      google.maps.event.addListener(map, 'click', function(event){
+        var lat = event.latLng.lat();
+        var lng = event.latLng.lng();
+        formatAddress(lat,lng);
+    });
+
+}
+
+//extracts the address from the text field, performs geocoding
+function sendRequest () {
+	    var address = document.getElementById("address").value;
+	    request.onreadystatechange = function(){
+	    if (request.readyState == 4) {
+	       var xml = request.responseXML.documentElement;
+	       var value = xml.getElementsByTagName("response")[0].getElementsByTagName("results")[0].getElementsByTagName("result")[0].getElementsByTagName("zestimate")[0].getElementsByTagName("amount")[0].innerHTML;
+	       var addZest = address+"<br/>"+value;
+	       var alladdress = streetno+","+citystate;
+	       geocoder.geocode( { 'address': alladdress}, function(results, status) {
+	          if (status == google.maps.GeocoderStatus.OK) {
+	             map.setCenter(results[0].geometry.location);
+	             var marker = new google.maps.Marker({
+	                map: map,
+	                position: results[0].geometry.location
+
+	            });
+	            markers.push(marker);
+	            var infowindow = new google.maps.InfoWindow({
+	            content: addZest
+	            });
+	            document.getElementById("textinfo").innerHTML += address+'\n'+value+'\n';
+	            infowindow.open(map,marker);
+	           } else {
+	            alert("Geocode was not successful for the following reason: " + status);
+	            }
+	        });
+	     }
+	};
+	    var splitaddress = address.split(",");
+	    streetno = splitaddress[0];
+	    citystate = splitaddress[1];
+	    request.open("GET","proxy.php?zws-id="+zwsid+"&address="+streetno+"&citystatezip="+citystate);
+	    request.withCredentials = "true";
+	    request.send(null);
+	}
+
+//extracts the formatted address from the formatAddress method, performs geocoding
+function reverse(address){
+    var addr = address;
+    request.onreadystatechange = function(){
+       if (request.readyState == 4) {
+          var xml = request.responseXML.documentElement;
+          var value = xml.getElementsByTagName("response")[0].getElementsByTagName("results")[0].getElementsByTagName("result")[0].getElementsByTagName("zestimate")[0].getElementsByTagName("amount")[0].innerHTML;
+          var addZest = address+"<br/>"+value;
+          geocoder.geocode( { 'address': addr}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                  map.setCenter(results[0].geometry.location);
+                  var marker = new google.maps.Marker({
+                      map: map,
+                      position: results[0].geometry.location
+                  });
+                  markers.push(marker);
+                  var infowindow = new google.maps.InfoWindow({
+                      content: addZest
+                  });
+                  document.getElementById("textinfo").innerHTML += addr+'\n'+value+'\n';
+                  infowindow.open(map,marker);
+               }else {
+                  alert("Geocode was not successful for the following reason: " + status);
+               }
+           });
+         }
+      };
+      var splitaddress = addr.split(",");
+      streetno = splitaddress[0];
+      citystate = splitaddress[1];
+      request.open("GET","proxy.php?zws-id="+zwsid+"&address="+streetno+"&citystatezip="+citystate);
+      request.withCredentials = "true";
+      request.send(null);
+}
+
+//method to convert the latitude and the longitude to the formatted address
+function formatAddress(lat,lng) {
+	   var latlng = new google.maps.LatLng(lat, lng);
+	   geocoder.geocode({'latLng': latlng}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	          if (results[0]) {
+	                 var address1 = results[0].formatted_address;
+	                 reverse(address1);
+	          }
+	      } else {
+	                alert("Geocoder failed due to: " + status);
+	             }
+	   });
+}
+
+function setMap(map) {
+	  for (var i = 0; i < markers.length; i++) {
+	    markers[i].setMap(map);
+	  }
+}
+//to clear all the markers and textarea
+function clearAllMarkers() {
+	  setMap(null);
+	  document.getElementById("textinfo").innerHTML="";
+}
+
+
