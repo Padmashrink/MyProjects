@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT db (publisher+,author+)>
+<!ELEMENT publisher (name,address,phone,URL,book+)>
+<!ATTLIST publisher id ID #REQUIRED>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT URL (#PCDATA)>
+<!ELEMENT book (isbn,title,price,year)>
+<!ATTLIST book id ID #REQUIRED written_by IDREFS #REQUIRED>
+<!ELEMENT isbn (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT author (name,address,URL)>
+<!ATTLIST author id ID #REQUIRED written IDREFS #REQUIRED>

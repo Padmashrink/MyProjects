@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE db SYSTEM "project5.dtd">
+<db> 
+	 <publisher id="p1">
+	     <name>publisher1</name>
+		 <address>312 UTA BLVD, Arlington, Texas</address>
+		 <phone>9876543210</phone>
+		 <URL>www.publisher.com</URL>
+		 <book id="book1" written_by="a1 a2 a3">
+		     <isbn>ISBN-978-3-16-148410-0</isbn>
+			 <title>web1</title>
+			 <price>$100</price>
+			 <year>2000</year>
+	         </book>
+		 <book id="book2" written_by="a3 a4">
+		     <isbn>ISBN-978-3-16-148411-1</isbn>
+			 <title>web2</title>
+			 <price>$110</price>
+			 <year>2001</year>
+		 </book>
+	 </publisher>
+	 <publisher id="p2">
+	     <name>publisher2</name>
+		 <address>313 UTA BLVD, Arlington, Texas</address>
+		 <phone>8765432109</phone>
+		 <URL>www.publisher2.com</URL>
+		 <book id="book3" written_by="a1 a5">
+		     <isbn>ISBN-978-3-16-148412-2</isbn>
+			 <title>web3</title>
+			 <price>$90</price>
+			 <year>2002</year>
+		 </book>
+	 </publisher>
+	 <author id="a1" written="book1 book3">
+	     <name>xyz</name>
+		 <address>Street 1, Arlington, Texas</address>
+		 <URL>www.xyz.com</URL>
+	 </author>
+	 <author id="a2" written="book1">
+	     <name>yza</name>
+		 <address>Street 2, Arlington, Texas</address>
+		 <URL>www.yza.com</URL>
+	 </author>
+	 <author id="a3" written="book1 book2">
+	     <name>zab</name>
+		 <address>Street 3, Arlington, Texas</address>
+		 <URL>www.zab.com</URL>
+	 </author>
+	 <author id="a4" written="book2">
+	     <name>abc</name>
+		 <address>Street 4, Arlington, Texas</address>
+		 <URL>www.abc.com</URL>
+	 </author>
+	 <author id="a5" written="book3">
+	     <name>bcd</name>
+		 <address>Street 5, Arlington, Texas</address>
+		 <URL>www.bcd.com</URL>
+	 </author>
+</db>
+	 

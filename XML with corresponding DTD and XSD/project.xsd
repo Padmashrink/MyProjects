@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xsd:element name="db">
+    <xsd:complexType>
+         <xsd:sequence>
+             <xsd:element name="publisher" maxOccurs="unbounded" minOccurs="1">
+                 <xsd:complexType>
+                     <xsd:sequence>
+                         <xsd:element name="name" type="xsd:string"/>
+                         <xsd:element name="address" type="xsd:string"/>
+                         <xsd:element name="phone" type="xsd:long"/>
+                         <xsd:element name="URL" type="xsd:anyURI"/>
+                         <xsd:element name="book" maxOccurs="unbounded" minOccurs="1">
+                         <xsd:complexType>
+                             <xsd:sequence>
+                                 <xsd:element name="isbn" type="xsd:string"/>
+                                 <xsd:element name="title" type="xsd:string"/>
+                                 <xsd:element name="price" type="xsd:string"/>
+                                 <xsd:element name="year" type="xsd:short"/>
+                             </xsd:sequence>
+                             <xsd:attribute name="id" type="xsd:string" use="required"/>
+                             <xsd:attribute name="written_by" type="xsd:string" use="required"/>
+                         </xsd:complexType>
+                         </xsd:element>
+                     </xsd:sequence>
+                     <xsd:attribute  name="id" type="xsd:string" use="required"/>
+                 </xsd:complexType>
+             </xsd:element>
+             <xsd:element name="author" maxOccurs="unbounded" minOccurs="1">
+                 <xsd:complexType>
+                     <xsd:sequence>
+                         <xsd:element name="name" type="xsd:string"/>
+                         <xsd:element name="address" type="xsd:string"/>
+                         <xsd:element name="URL" type="xsd:anyURI"/>
+                     </xsd:sequence>
+                     <xsd:attribute name="id" type="xsd:string" use="required"/>
+                     <xsd:attribute name="written" type="xsd:string" use="required"/>
+                 </xsd:complexType>
+             </xsd:element>
+         </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
