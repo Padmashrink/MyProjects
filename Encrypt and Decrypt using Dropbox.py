@@ -1,8 +1,5 @@
 '''
-Name : Padmashri Nonabur Krishnamurthy
-UTA id : 1001084560
 
-References : 
 References :
 1. https://www.dropbox.com/developers/core/sdks/python
 2. https://www.dropbox.com/developers/core/start/python
@@ -25,14 +22,14 @@ import os
 import sys
 
 # Get your app key and secret from the Dropbox developer website
-app_key = 'qpj8n06l6tilk48'
-app_secret = 'xjanlwtjtbex7wh'
+app_key = '*****'
+app_secret = '*****'
 
 # Create an object of DropboxOAuth2FlowNoRedirect i.e obj which is the object of DropboxOAuth2FlowNoRedirect and provide authorise linking to the app with the respective dropbox account
 obj = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
 
 #pass the access token to the Dropbox CLient to check if we have got access to the Core API calls
-dclient = dropbox.client.DropboxClient('pt4b4IGb-4AAAAAAAAABQiEWM3lo6jyDtkLlQI17LCdMN-GUlb2mZ060dMycx6DA')
+dclient = dropbox.client.DropboxClient('******')
 print 'linked account: ', dclient.account_info()
 
 #Set the path to the home directory for Gnupg and also set the default encoding as utf-8
@@ -41,7 +38,7 @@ gpg.encoding = 'utf-8'
 
 
 #Generate the keys for sender and receiver using gpg.gen_key()
-data = gpg.gen_key_input(key_type="RSA", key_length=1024, name_real='advanceddb', name_email=['advanceddb@gmail.com'], passphrase='advanceddb')
+data = gpg.gen_key_input(key_type="RSA", key_length=1024, name_real='advanceddb', name_email=['******'], passphrase='advanceddb')
 keys = gpg.gen_key(data)
 advanceddb = keys.fingerprint
 
