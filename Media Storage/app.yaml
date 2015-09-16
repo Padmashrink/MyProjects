@@ -1,0 +1,23 @@
+application: *****
+version: 1
+runtime: php55
+api_version: 1
+
+handlers:
+- url: /homescreen.php
+  script: homescreen.php
+
+- url: /register.php
+  script: register.php
+
+- url: /login.php
+  script: login.php
+
+- url: /upload.php
+  script: upload.php
+
+- url: /upload_handler.php
+  script: upload_handler.php
+
+- url: /delete.php
+  script: delete.php
