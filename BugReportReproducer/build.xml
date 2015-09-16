@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+ 
+<project name="BugReportReproduce" default="test auot junit and report" basedir=".">
+   
+    <!-- 定义工程依赖的jar包存放的位置 -->
+    <property name="lib.dir" value="lib"/>
+    <path id="classpath">
+       <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+ 
+    <property name="output folder" value="bin"/>
+    <property name="src folder" value="src"/>
+    <property name="test folder" value="test"/>
+    <property name="report folder" value="report"/>
+ 
+    <target name="clean">
+       <delete dir="report"/>
+       <echo>清除测试报告文件 成功!</echo>
+    </target>
+ 
+    <target name="compile init">
+       <mkdir dir="${output folder}"/>
+       <echo>创建编译文件夹 成功!</echo>
+    </target>
+ 
+    <target name="report init" depends="clean">
+       <mkdir dir="${report folder}"/>
+       <echo>创建测试报告文件夹 成功!</echo>
+    </target>
+ 
+    <target name="compile" depends="compile init">
+       <javac srcdir="${src folder}" destdir="${output folder}" classpathref="classpath"/>
+       <echo>项目源文件编译 成功!</echo>
+    </target>
+ 
+    <target name="test compile" depends="report init">
+       <javac srcdir="${test folder}" destdir="${output folder}" classpathref="classpath"/>
+       <echo>项目测试文件编译 成功!</echo>
+    </target>
+ 
+    <target name="all compile" depends="compile, test compile">
+    </target>
+ 
+    <target name="test auot junit and report" depends="all compile">
+       <junit printsummary="on" fork="true" showoutput="true">
+           <classpath>
+              <fileset dir="${lib.dir}" includes="**/*.jar"/>
+              <pathelement path="${output folder}"/>
+           </classpath>
+           <formatter type="xml"/>
+           <batchtest todir="${report folder}">
+              <fileset dir="${output folder}">
+                  <include name="**/Test*.*"/>
+              </fileset>
+           </batchtest>
+       </junit>
+       <junitreport todir="${report folder}">
+           <fileset dir="${report folder}">
+              <include name="TEST-*.xml"/>
+           </fileset>
+           <report format="frames" todir="${report folder}"/>
+       </junitreport>
+    </target>
+</project>
